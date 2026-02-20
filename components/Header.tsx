@@ -11,7 +11,7 @@ const Header = () => {
         height={80}
         className="h-12.5 w-auto"
       />
-      <Button>Get Started</Button>
+      <Button className="bg-[#3903ff] hover:bg-[#2a02c0]">Get Started</Button>
     </div>
   );
 };

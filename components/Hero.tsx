@@ -29,8 +29,8 @@ const Hero = () => {
         </div>
       </div>
       <Image
-        className="mt-5 rounded-xl border-2"
-        src="/dashboard.jpg"
+        className="-mt-9 rounded-xl border-2"
+        src="/dashboard.png"
         alt="dashboard"
         width={1000}
         height={600}
