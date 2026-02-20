@@ -1,5 +1,11 @@
+import { UserButton } from "@clerk/nextjs";
+
 const dashboard = () => {
-  return <div>Dashboard</div>;
+  return (
+    <div>
+      <UserButton />
+    </div>
+  );
 };
 
 export default dashboard;

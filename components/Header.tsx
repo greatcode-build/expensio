@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { UserButton, useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 const Header = () => {
+  const { user, isSignedIn } = useUser();
   return (
     <div className="p-5 flex justify-between items-center border shadow-sm">
       <Image
@@ -11,7 +16,15 @@ const Header = () => {
         height={80}
         className="h-12.5 w-auto"
       />
-      <Button className="bg-[#3903ff] hover:bg-[#2a02c0]">Get Started</Button>
+      {isSignedIn ? (
+        <UserButton />
+      ) : (
+        <Link href="/sign-in">
+          <Button className="bg-[#3903ff] hover:bg-[#2a02c0]">
+            Get Started
+          </Button>
+        </Link>
+      )}
     </div>
   );
 };

@@ -21,7 +21,7 @@ const Hero = () => {
           <div className="mt-4 flex justify-center gap-4 sm:mt-6">
             <Link
               className="inline-block rounded border border-[#3903ff] bg-[#3903ff] px-5 py-3 font-medium text-white shadow-sm transition-colors hover:bg-[#3903ff]"
-              href="#"
+              href="/sign-in"
             >
               Get Started
             </Link>
