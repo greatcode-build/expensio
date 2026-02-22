@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "db:studio": "npx drizzle-kit studio"
+    "lint": "eslint"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.38.0",

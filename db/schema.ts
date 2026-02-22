@@ -7,3 +7,11 @@ export const Budgets = pgTable("budgets", {
   icon: varchar("icon"),
   createdBy: varchar("created_by").notNull(),
 });
+
+export const Expenses = pgTable("expenses", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  name: varchar("name").notNull(),
+  amount: integer("amount").notNull(),
+  budgetId: integer("budgetId").references(() => Budgets.id),
+  createdAt: varchar("created_at").notNull(),
+});
