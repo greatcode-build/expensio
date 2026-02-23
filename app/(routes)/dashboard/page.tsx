@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
-const dashboard = async () => {
+const Dashboard = async () => {
   const { userId } = await auth();
   if (!userId) {
     redirect("/sign-in");
@@ -20,4 +20,4 @@ const dashboard = async () => {
   return <div>Dashboard</div>;
 };
 
-export default dashboard;
+export default Dashboard;

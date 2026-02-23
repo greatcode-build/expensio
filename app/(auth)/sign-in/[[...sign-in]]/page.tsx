@@ -1,7 +1,7 @@
 import { SignIn } from "@clerk/nextjs";
 import Image from "next/image";
 
-export default function Page() {
+const SignInPage = () => {
   return (
     <div className="flex min-h-screen">
       <div className="relative hidden md:block md:w-1/2">
@@ -19,4 +19,6 @@ export default function Page() {
       </div>
     </div>
   );
-}
+};
+
+export default SignInPage;

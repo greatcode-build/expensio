@@ -1,12 +1,27 @@
 import { BudgetList } from "@/components/BudgetList";
+import { Suspense } from "react";
 
-const budgets = () => {
+const Budgets = () => {
   return (
     <div className="p-10">
       <h1 className="font-bold text-3xl">My Budgets</h1>
-      <BudgetList />
+      <Suspense
+        fallback={
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7">
+            <div className="h-full p-5 border rounded-lg bg-slate-100 animate-pulse"></div>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div
+                key={i}
+                className="w-full rounded-lg bg-slate-200 animate-pulse h-37.5"
+              ></div>
+            ))}
+          </div>
+        }
+      >
+        <BudgetList />
+      </Suspense>
     </div>
   );
 };
 
-export default budgets;
+export default Budgets;

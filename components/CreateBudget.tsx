@@ -15,22 +15,25 @@ import EmojiPicker from "emoji-picker-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
-import { createBudgetAction } from "@/lib/actions/budget";
+import { createBudget } from "@/lib/actions/budget";
+import { useRouter } from "next/navigation";
 
 const CreateBudget = () => {
   const [emojiIcon, setEmojiIcon] = useState("😊");
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
+  const router = useRouter();
 
   const handleCreateBudget = async () => {
     try {
-      await createBudgetAction({
+      await createBudget({
         name,
         amount: Number(amount),
         emojiIcon,
       });
-      toast("New Budget Created");
+      toast("New Budget Created!");
+      router.refresh();
     } catch (error) {
       console.error("Budget not Created", error);
     }
@@ -40,7 +43,7 @@ const CreateBudget = () => {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <div className="bg-slate-100 items-center flex flex-col border-2 p-10 rounded-md cursor-pointer border-dashed hover:shadow-md">
+          <div className="h-full bg-slate-100 items-center flex flex-col border-2 p-10 rounded-md cursor-pointer border-dashed hover:shadow-md">
             <h1 className="text-3xl">+</h1>
             <h1>Create New Budget</h1>
           </div>
