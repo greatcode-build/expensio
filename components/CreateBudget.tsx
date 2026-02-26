@@ -26,17 +26,13 @@ const CreateBudget = () => {
   const router = useRouter();
 
   const handleCreateBudget = async () => {
-    try {
-      await createBudget({
-        name,
-        amount: Number(amount),
-        emojiIcon,
-      });
-      toast("New Budget Created!");
-      router.refresh();
-    } catch (error) {
-      console.error("Budget not Created", error);
-    }
+    await createBudget({
+      name,
+      amount: Number(amount),
+      emojiIcon,
+    });
+    toast("New Budget Created!");
+    router.refresh();
   };
 
   return (

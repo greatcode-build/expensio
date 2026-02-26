@@ -6,7 +6,7 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 
 const Header = () => {
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
   return (
     <div className="p-5 flex justify-between items-center border shadow-sm">
       <Image

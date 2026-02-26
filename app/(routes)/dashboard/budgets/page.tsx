@@ -1,4 +1,5 @@
 import { BudgetList } from "@/components/BudgetList";
+import { CreateBudget } from "@/components/CreateBudget";
 import { Suspense } from "react";
 
 const Budgets = () => {
@@ -8,7 +9,7 @@ const Budgets = () => {
       <Suspense
         fallback={
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7">
-            <div className="h-full p-5 border rounded-lg bg-slate-100 animate-pulse"></div>
+            <CreateBudget />
             {Array.from({ length: 5 }).map((_, i) => (
               <div
                 key={i}

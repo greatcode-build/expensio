@@ -1,6 +1,14 @@
-const BudgetItem = ({ budget }: { budget: budgetListProps }) => {
+import Link from "next/link";
+
+const BudgetItem = ({ budget }: { budget: BudgetListProps }) => {
+  const progressPercent = Number(
+    ((budget.totalSpend / budget.amount) * 100).toFixed(2),
+  );
   return (
-    <div className="h-full p-5 border rounded-lg hover:shadow-md cursor-pointer">
+    <Link
+      href={`/dashboard/expenses/${budget.id}`}
+      className="p-5 border rounded-lg hover:shadow-md cursor-pointer h-42.5"
+    >
       <div className="flex gap-2 items-center justify-between">
         <div className="flex gap-2 items-center min-w-0">
           <h2 className="text-2xl px-4 rounded-full bg-slate-100 p-3">
@@ -25,10 +33,13 @@ const BudgetItem = ({ budget }: { budget: budgetListProps }) => {
           </h2>
         </div>
         <div className="w-full h-2 bg-slate-300 rounded-full">
-          <div className="w-[40%] h-2 bg-[#3903ff] rounded-full"></div>
+          <div
+            className="h-2 bg-[#3903ff] rounded-full"
+            style={{ width: `${progressPercent}%` }}
+          ></div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

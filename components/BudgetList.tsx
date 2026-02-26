@@ -3,12 +3,7 @@ import { CreateBudget } from "./CreateBudget";
 import { BudgetItem } from "./BudgetItem";
 
 const BudgetList = async () => {
-  let budgets: budgetListProps[] = [];
-  try {
-    budgets = await getBudgetList();
-  } catch (error) {
-    console.error("Error fetching budgets", error);
-  }
+  const budgets = await getBudgetList();
 
   return (
     <div className="mt-7">
