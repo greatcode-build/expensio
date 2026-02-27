@@ -88,9 +88,24 @@ export const deleteBudget = async (params: { id: string }) => {
         .delete(Budgets)
         .where(eq(Budgets.id, Number(params.id)))
         .returning();
+      return deleteBudget;
     }
   } catch (error) {
     console.error("Error deleting budget:", error);
     throw error;
   }
+};
+
+export const updateBudget = async ({
+  name,
+  amount,
+  icon,
+  budget,
+}: UpdateBudgetProps) => {
+  const result = await db
+    .update(Budgets)
+    .set({ name, amount, icon })
+    .where(eq(Budgets.id, budget.id))
+    .returning();
+  return result;
 };

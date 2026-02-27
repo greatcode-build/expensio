@@ -1,6 +1,7 @@
 import { AddExpense } from "@/components/AddExpense";
 import { BudgetItem } from "@/components/BudgetItem";
-import { DeleteBudgetButton } from "@/components/DeleteBudgetButton";
+import { DeleteBudget } from "@/components/DeleteBudget";
+import { EditBudget } from "@/components/EditBudget";
 import { ExpenseListTable } from "@/components/ExpenseListTable";
 import { getBudgetInfo } from "@/lib/actions/budget";
 import { getExpenseList } from "@/lib/actions/expense";
@@ -22,7 +23,10 @@ const Expenses = async ({ params }: { params: Promise<{ id: string }> }) => {
     <div className="p-10">
       <h2 className="text-2xl font-bold flex items-center justify-between">
         My Expenses
-        <DeleteBudgetButton id={id} />
+        <div className="flex gap-2">
+          <EditBudget budget={budgetInfo} />
+          <DeleteBudget id={id} />
+        </div>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 mt-6 gap-5">
         <BudgetItem budget={budgetInfo} />

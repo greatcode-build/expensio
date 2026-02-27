@@ -3,6 +3,12 @@ declare interface CreateBudgetProps {
   amount: number;
   emojiIcon: string;
 }
+declare interface UpdateBudgetProps {
+  name: string;
+  amount: number;
+  icon: string | null;
+  budget: BudgetListProps;
+}
 
 declare interface BudgetListProps {
   id: number;

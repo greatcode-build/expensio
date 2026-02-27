@@ -17,7 +17,7 @@ import { deleteBudget } from "@/lib/actions/budget";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-const DeleteBudgetButton = ({ id }: { id: string }) => {
+const DeleteBudget = ({ id }: { id: string }) => {
   const router = useRouter();
   const handleDeleteBudget = async () => {
     await deleteBudget({ id });
@@ -38,8 +38,7 @@ const DeleteBudgetButton = ({ id }: { id: string }) => {
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
-            current budget along with all the expenses associated with it and
-            account from our servers.
+            current budget along with all the expenses associated with it.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -56,4 +55,4 @@ const DeleteBudgetButton = ({ id }: { id: string }) => {
   );
 };
 
-export { DeleteBudgetButton };
+export { DeleteBudget };
