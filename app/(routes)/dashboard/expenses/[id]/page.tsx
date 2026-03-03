@@ -5,9 +5,11 @@ import { EditBudget } from "@/components/EditBudget";
 import { ExpenseListTable } from "@/components/ExpenseListTable";
 import { getBudgetInfo } from "@/lib/actions/budget";
 import { getExpenseList } from "@/lib/actions/expense";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const Expenses = async ({ params }: { params: Promise<{ id: string }> }) => {
+const ExpensePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
 
   const [budgetInfo, expenseList] = await Promise.all([
@@ -22,7 +24,12 @@ const Expenses = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <div className="p-10">
       <h2 className="text-2xl font-bold flex items-center justify-between">
-        My Expenses
+        <div className="flex items-center gap-3">
+          <Link href="/dashboard/budgets">
+            <ArrowLeft className="cursor-pointer" />
+          </Link>
+          My Expenses
+        </div>
         <div className="flex gap-2">
           <EditBudget budget={budgetInfo} />
           <DeleteBudget id={id} />
@@ -33,11 +40,10 @@ const Expenses = async ({ params }: { params: Promise<{ id: string }> }) => {
         <AddExpense budgetId={id} />
       </div>
       <div className="mt-4">
-        <h2 className="font-bold text-lg">Latest Expenses</h2>
         <ExpenseListTable expenses={expenseList} />
       </div>
     </div>
   );
 };
 
-export default Expenses;
+export default ExpensePage;

@@ -5,6 +5,21 @@ import { Budgets, Expenses } from "@/db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { and, desc, eq, getTableColumns, sql } from "drizzle-orm";
 
+export const userHasBudget = async () => {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+
+  try {
+    const result = await db
+      .select()
+      .from(Budgets)
+      .where(eq(Budgets.createdBy, userId!));
+    return result;
+  } catch (error) {
+    console.error("Error fetching user budgets:", error);
+  }
+};
+
 export const createBudget = async ({
   name,
   amount,

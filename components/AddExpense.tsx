@@ -6,13 +6,16 @@ import { Button } from "./ui/button";
 import { createExpense } from "@/lib/actions/expense";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Loader } from "lucide-react";
 
 const AddExpense = ({ budgetId }: { budgetId: string }) => {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const addExpense = async () => {
+    setLoading(true);
     await createExpense({
       name,
       amount: Number(amount),
@@ -20,6 +23,9 @@ const AddExpense = ({ budgetId }: { budgetId: string }) => {
     });
     toast("New Expense Created!");
     router.refresh();
+    setName("");
+    setAmount("");
+    setLoading(false);
   };
 
   return (
@@ -29,6 +35,7 @@ const AddExpense = ({ budgetId }: { budgetId: string }) => {
         <h2 className="text-black font-medium my-1">Expense Name</h2>
         <Input
           placeholder="e.g. Rent"
+          value={name}
           onChange={(e) => setName(e.target.value)}
         />
       </div>
@@ -37,15 +44,16 @@ const AddExpense = ({ budgetId }: { budgetId: string }) => {
         <Input
           type="number"
           placeholder="e.g. $5000"
+          value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
       </div>
       <Button
         className="mt-3 w-full bg-[#3903ff] hover:bg-[#2a02c0]"
-        disabled={!name || !amount}
+        disabled={!name || !amount || loading}
         onClick={addExpense}
       >
-        Add New Expense
+        {loading ? <Loader className="animate-spin" /> : "Add New Expense"}
       </Button>
     </div>
   );

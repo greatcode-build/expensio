@@ -1,7 +1,9 @@
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 
 const Hero = () => {
+  const { user } = useUser();
   return (
     <section className="bg-white flex items-center flex-col">
       <div className="mx-auto w-screen max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
@@ -19,12 +21,21 @@ const Hero = () => {
           </p>
 
           <div className="mt-4 flex justify-center gap-4 sm:mt-6">
-            <Link
-              className="inline-block rounded border border-[#3903ff] bg-[#3903ff] px-5 py-3 font-medium text-white shadow-sm transition-colors hover:bg-[#3903ff]"
-              href="/sign-in"
-            >
-              Get Started
-            </Link>
+            {user ? (
+              <Link
+                href="/dashboard"
+                className="inline-block rounded bg-[#3903ff] px-5 py-3 font-medium text-white shadow-sm"
+              >
+                Go to Dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/sign-in"
+                className="inline-block rounded bg-[#3903ff] px-5 py-3 font-medium text-white shadow-sm"
+              >
+                Get Started
+              </Link>
+            )}
           </div>
         </div>
       </div>

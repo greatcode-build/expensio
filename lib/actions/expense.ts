@@ -2,6 +2,7 @@
 
 import { db } from "@/db/dbConfig";
 import { Budgets, Expenses } from "@/db/schema";
+import { auth } from "@clerk/nextjs/server";
 import { desc, eq } from "drizzle-orm";
 
 export const createExpense = async ({
@@ -48,6 +49,29 @@ export const deleteExpense = async ({ expenseId }: { expenseId: number }) => {
     return result;
   } catch (error) {
     console.error("Error deleting expense:", error);
+    throw error;
+  }
+};
+
+export const getAllExpenses = async () => {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+  try {
+    const result = await db
+      .select({
+        id: Expenses.id,
+        name: Expenses.name,
+        amount: Expenses.amount,
+        budgetId: Expenses.budgetId,
+        createdAt: Expenses.createdAt,
+      })
+      .from(Budgets)
+      .rightJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
+      .where(eq(Budgets.createdBy, userId!))
+      .orderBy(desc(Expenses.id));
+    return result;
+  } catch (error) {
+    console.error("Error fetching all expenses:", error);
     throw error;
   }
 };

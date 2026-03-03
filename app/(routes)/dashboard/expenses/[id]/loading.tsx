@@ -7,7 +7,7 @@ export default function Loading() {
         <div className="p-5 border rounded-lg h-42.5 animate-pulse">
           <div className="flex gap-2 items-center justify-between">
             <div className="flex gap-2 items-center w-full">
-              <div className="w-12 h-12 rounded-full bg-slate-200"></div>
+              <div className="w-15 h-12 rounded-full bg-slate-200"></div>
               <div className="space-y-2 w-full">
                 <div className="h-4 bg-slate-200 rounded w-1/2"></div>
                 <div className="h-3 bg-slate-200 rounded w-1/3"></div>

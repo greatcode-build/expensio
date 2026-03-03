@@ -1,3 +1,4 @@
+import { BudgetItemSkeleton } from "@/components/BudgetItemSkeleton";
 import { BudgetList } from "@/components/BudgetList";
 import { CreateBudget } from "@/components/CreateBudget";
 import { Suspense } from "react";
@@ -11,10 +12,7 @@ const Budgets = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7">
             <CreateBudget />
             {Array.from({ length: 5 }).map((_, i) => (
-              <div
-                key={i}
-                className="w-full rounded-lg bg-slate-200 animate-pulse h-37.5"
-              ></div>
+              <BudgetItemSkeleton key={i} />
             ))}
           </div>
         }
