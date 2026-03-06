@@ -8,17 +8,64 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Loader } from "lucide-react";
 
-const AddExpense = ({ budgetId }: { budgetId: string }) => {
+const AddExpense = ({
+  expenses,
+  budgets,
+  budgetId,
+}: {
+  expenses: ExpenseListProps[];
+  budgets: BudgetListProps[];
+  budgetId: string;
+}) => {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [amountError, setAmountError] = useState("");
   const router = useRouter();
 
+  const budget = budgets.find((budget) => budget.id === Number(budgetId));
+  const remainingAmount = budget ? budget.amount - budget.totalSpend : 0;
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setName(value);
+
+    const expenseExists = expenses?.some(
+      (expense) =>
+        expense.name.toLowerCase().trim() === value.toLowerCase().trim(),
+    );
+
+    if (expenseExists) {
+      setNameError("Expense already exists in this budget");
+    } else {
+      setNameError("");
+    }
+  };
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const numericAmount = Number(value);
+    setAmount(value);
+    if (numericAmount <= 0) {
+      setAmountError("Amount must be greater than 0");
+    } else {
+      setAmountError("");
+    }
+
+    if (remainingAmount && numericAmount > remainingAmount) {
+      setAmountError("Expense amount exceeds remaining budget");
+    } else {
+      setAmountError("");
+    }
+  };
+
   const addExpense = async () => {
+    const numericAmount = Number(amount);
+    if (numericAmount <= 0 || numericAmount > remainingAmount) return;
     setLoading(true);
     await createExpense({
       name,
-      amount: Number(amount),
+      amount: numericAmount,
       budgetId: Number(budgetId),
     });
     toast("New Expense Created!");
@@ -33,19 +80,28 @@ const AddExpense = ({ budgetId }: { budgetId: string }) => {
       <h2 className="text-lg font-bold">Add Expense</h2>
       <div className="mt-2">
         <h2 className="text-black font-medium my-1">Expense Name</h2>
+        {nameError && <p className="text-red-500 text-sm mt-1">{nameError}</p>}
         <Input
           placeholder="e.g. Rent"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={handleNameChange}
         />
       </div>
       <div className="mt-2">
         <h2 className="text-black font-medium my-1">Expense Amount</h2>
+        <p className="text-sm text-gray-500">
+          Remaining Budget: ${remainingAmount}
+        </p>
+        {amountError && (
+          <p className="text-red-500 text-sm mt-1">{amountError}</p>
+        )}
         <Input
           type="number"
+          min="0"
+          max={remainingAmount}
           placeholder="e.g. $5000"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={handleAmountChange}
         />
       </div>
       <Button

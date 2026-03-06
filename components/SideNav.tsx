@@ -12,13 +12,15 @@ const SideNav = () => {
 
   return (
     <div className="h-screen p-5">
-      <Image
-        src="/logo.svg"
-        alt="logo"
-        width={80}
-        height={80}
-        className="h-12.5 w-auto"
-      />
+      <Link href="/">
+        <Image
+          src="/logo.svg"
+          alt="logo"
+          width={80}
+          height={80}
+          className="h-12.5 w-auto"
+        />
+      </Link>
       <div className="mt-5">
         {sideNavItems.map((item) => (
           <Link

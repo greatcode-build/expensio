@@ -1,3 +1,5 @@
+"use client";
+
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";

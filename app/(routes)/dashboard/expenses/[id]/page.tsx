@@ -3,7 +3,7 @@ import { BudgetItem } from "@/components/BudgetItem";
 import { DeleteBudget } from "@/components/DeleteBudget";
 import { EditBudget } from "@/components/EditBudget";
 import { ExpenseListTable } from "@/components/ExpenseListTable";
-import { getBudgetInfo } from "@/lib/actions/budget";
+import { getBudgetInfo, getBudgetList } from "@/lib/actions/budget";
 import { getExpenseList } from "@/lib/actions/expense";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -12,9 +12,10 @@ import { notFound } from "next/navigation";
 const ExpensePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
 
-  const [budgetInfo, expenseList] = await Promise.all([
+  const [budgetInfo, expenseList, budgets] = await Promise.all([
     getBudgetInfo({ id }),
     getExpenseList({ budgetId: parseInt(id) }),
+    getBudgetList(),
   ]);
 
   if (!budgetInfo) {
@@ -37,7 +38,7 @@ const ExpensePage = async ({ params }: { params: Promise<{ id: string }> }) => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 mt-6 gap-5">
         <BudgetItem budget={budgetInfo} />
-        <AddExpense budgetId={id} />
+        <AddExpense budgetId={id} budgets={budgets} expenses={expenseList} />
       </div>
       <div className="mt-4">
         <ExpenseListTable expenses={expenseList} />

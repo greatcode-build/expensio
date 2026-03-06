@@ -27,7 +27,22 @@ export const createBudget = async ({
 }: CreateBudgetProps) => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
+  if (amount <= 0) {
+    throw new Error("Amount must be greater than 0");
+  }
+
+  const budgetName = name.trim();
+  if (!budgetName) throw new Error("Budget name required");
+
   try {
+    const existingBudget = await db
+      .select()
+      .from(Budgets)
+      .where(and(eq(Budgets.createdBy, userId), eq(Budgets.name, budgetName)));
+
+    if (existingBudget.length > 0) {
+      throw new Error("Budget already exists");
+    }
     const result = await db
       .insert(Budgets)
       .values({

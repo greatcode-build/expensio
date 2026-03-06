@@ -18,17 +18,46 @@ import { toast } from "sonner";
 import { createBudget } from "@/lib/actions/budget";
 import { useRouter } from "next/navigation";
 
-const CreateBudget = () => {
+const CreateBudget = ({ budgets }: { budgets: BudgetListProps[] }) => {
   const [emojiIcon, setEmojiIcon] = useState("😊");
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [amountError, setAmountError] = useState("");
   const router = useRouter();
 
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setName(value);
+    const budgetExists = budgets.some(
+      (budget) =>
+        budget.name.toLowerCase().trim() === value.toLowerCase().trim(),
+    );
+    if (budgetExists) {
+      setNameError("Budget already exists");
+    } else {
+      setNameError("");
+    }
+  };
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const numericAmount = Number(value);
+    setAmount(value);
+    if (numericAmount <= 0) {
+      setAmountError("Amount must be greater than 0");
+    } else {
+      setAmountError("");
+    }
+  };
+
   const handleCreateBudget = async () => {
+    const numericAmount = Number(amount);
+    if (numericAmount <= 0 || nameError || amountError) return;
     await createBudget({
       name,
-      amount: Number(amount),
+      amount: numericAmount,
       emojiIcon,
     });
     toast("New Budget Created!");
@@ -67,17 +96,24 @@ const CreateBudget = () => {
                 </div>
                 <div className="mt-2">
                   <h2 className="text-black font-medium my-1">Budget Name</h2>
+                  {nameError && (
+                    <p className="text-red-500 text-sm mt-1">{nameError}</p>
+                  )}
                   <Input
                     placeholder="e.g. Groceries"
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={handleNameChange}
                   />
                 </div>
                 <div className="mt-2">
                   <h2 className="text-black font-medium my-1">Budget Amount</h2>
+                  {amountError && (
+                    <p className="text-red-500 text-sm mt-1">{amountError}</p>
+                  )}
                   <Input
                     type="number"
+                    min="0"
                     placeholder="e.g. $5000"
-                    onChange={(e) => setAmount(e.target.value)}
+                    onChange={handleAmountChange}
                   />
                 </div>
               </div>
