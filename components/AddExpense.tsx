@@ -46,17 +46,13 @@ const AddExpense = ({
     const value = e.target.value;
     const numericAmount = Number(value);
     setAmount(value);
+    let error = "";
     if (numericAmount <= 0) {
-      setAmountError("Amount must be greater than 0");
-    } else {
-      setAmountError("");
+      error = "Amount must be greater than 0";
+    } else if (numericAmount > remainingAmount) {
+      error = "Expense amount exceeds remaining budget";
     }
-
-    if (remainingAmount && numericAmount > remainingAmount) {
-      setAmountError("Expense amount exceeds remaining budget");
-    } else {
-      setAmountError("");
-    }
+    setAmountError(error);
   };
 
   const addExpense = async () => {
@@ -106,7 +102,7 @@ const AddExpense = ({
       </div>
       <Button
         className="mt-3 w-full bg-[#3903ff] hover:bg-[#2a02c0]"
-        disabled={!name || !amount || loading}
+        disabled={!name || !amount || !!nameError || !!amountError || loading}
         onClick={addExpense}
       >
         {loading ? <Loader className="animate-spin" /> : "Add New Expense"}

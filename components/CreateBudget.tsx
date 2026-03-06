@@ -123,7 +123,7 @@ const CreateBudget = ({ budgets }: { budgets: BudgetListProps[] }) => {
             <DialogClose asChild>
               <Button
                 className="mt-5 w-full bg-[#3903ff] hover:bg-[#2a02c0]"
-                disabled={!name || !amount}
+                disabled={!name || !amount || !!nameError || !!amountError}
                 onClick={handleCreateBudget}
               >
                 Create Budget
