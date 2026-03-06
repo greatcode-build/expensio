@@ -1,16 +1,19 @@
 import { BudgetItemSkeleton } from "@/components/BudgetItemSkeleton";
 import { BudgetList } from "@/components/BudgetList";
 import { CreateBudget } from "@/components/CreateBudget";
+import { getBudgetList } from "@/lib/actions/budget";
 import { Suspense } from "react";
 
-const Budgets = () => {
+const Budgets = async () => {
+  const budgets = await getBudgetList();
+
   return (
     <div className="p-10">
       <h1 className="font-bold text-3xl">My Budgets</h1>
       <Suspense
         fallback={
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7">
-            <CreateBudget />
+            <CreateBudget budgets={budgets} />
             {Array.from({ length: 5 }).map((_, i) => (
               <BudgetItemSkeleton key={i} />
             ))}
