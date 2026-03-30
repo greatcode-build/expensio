@@ -4,20 +4,31 @@ A modern expense tracking application built with Next.js, designed to help you m
 
 ## ✨ Features
 
-- **User Authentication**: Secure sign-in and sign-up with Clerk
-- **Budget Management**: Create and manage multiple budgets with custom icons
-- **Expense Tracking**: Log expenses and associate them with budgets
-- **Visual Analytics**: Interactive charts to visualize spending patterns
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
-- **Real-time Updates**: See changes reflected immediately in your dashboard
+- Secure sign in and sign up with Clerk
+- Create and manage multiple budgets with custom icons
+- Log expenses and associate them with budgets
+- Interactive charts to visualize spending patterns
+- Works seamlessly on desktop and mobile devices
+- See changes reflected immediately in your dashboard
+
+## 🛠️ Built with
+
+- `Next.js`
+- `TypeScript`
+- `Tailwind CSS`
+- `Radix UI, Lucide Icons`
+- `PostgreSQL with Drizzle ORM`
+- `Clerk`
+- `Recharts`
+- `Vercel`
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
-- PostgreSQL database (we recommend [Neon](https://neon.tech/) for serverless PostgreSQL)
-- Clerk account for authentication
+- `Node.js 18+`
+- `PostgreSQL database ([Neon](https://neon.tech/) for serverless PostgreSQL)`
+- `Clerk account for authentication`
 
 ### Installation
 
@@ -43,9 +54,12 @@ A modern expense tracking application built with Next.js, designed to help you m
    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
    CLERK_SECRET_KEY=your_clerk_secret_key
    NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+   NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+
    NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-   NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
-   NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+   NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+   NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
 
    # Database
    DATABASE_URL=your_neon_database_url
@@ -90,13 +104,6 @@ expensio/
 └── types/                 # TypeScript type definitions
 ```
 
-## 🛠️ Tech Stack
+## 🎥 Preview
 
-- **Framework**: Next.js 16
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: Radix UI, Lucide Icons
-- **Database**: PostgreSQL with Drizzle ORM
-- **Authentication**: Clerk
-- **Charts**: Recharts
-- **Deployment**: Vercel (recommended)
+[![Watch Preview](https://img.shields.io/badge/Click%20to%20Watch-Video-blue)](https://github.com/user-attachments/assets/ee619950-ab9c-4b69-98bd-f096c678af8c)
