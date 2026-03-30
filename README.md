@@ -106,4 +106,4 @@ expensio/
 
 ## 🎥 Preview
 
-[![Watch Preview](https://img.shields.io/badge/Click%20to%20Watch-Video-blue)](https://github.com/user-attachments/assets/ee619950-ab9c-4b69-98bd-f096c678af8c)
+
