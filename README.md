@@ -26,9 +26,9 @@ A modern expense tracking application built with Next.js, designed to help you m
 
 ### Prerequisites
 
-- `Node.js 18+`
-- `PostgreSQL database ([Neon](https://neon.tech/) for serverless PostgreSQL)`
-- `Clerk account for authentication`
+- Node.js 18+
+- PostgreSQL database ([Neon](https://neon.tech/) for serverless PostgreSQL)
+- Clerk account for authentication
 
 ### Installation
 
